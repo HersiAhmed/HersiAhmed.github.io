@@ -353,23 +353,26 @@
         <h2 class="p-title">SIEM Home Lab</h2>
         <span class="pill live">In progress</span>
       </div>
-      <p class="p-desc">A small SOC environment on my laptop: a Windows 11 endpoint sends logs to a Splunk server, where I simulate attacker activity and build detections for it.</p>
+      <p class="p-desc">A small SOC environment on my laptop: a Windows 11 endpoint sends its Security, System, and Sysmon logs to a Splunk server in real time, where I simulate attacker activity and build detections for it.</p>
       <ul class="p-points">
         <li>Deployed Splunk Enterprise on Ubuntu as a systemd service running under a least-privilege service account</li>
         <li>Built a Windows 11 endpoint; diagnosed a hypervisor conflict with Windows virtualization-based security, documented and rolled back every change, then migrated the lab from VirtualBox to VMware</li>
+        <li>Deployed Sysmon and the Splunk Universal Forwarder to stream Windows Security, System, Application, and Sysmon telemetry into dedicated Splunk indexes</li>
+        <li>Diagnosed missing Security and Sysmon logs as a permissions issue on protected event channels and fixed it with read-only Event Log Readers access instead of running the forwarder as an administrator</li>
+        <li>Investigated Windows logon events (4624) in Splunk, matching service logons to my own actions and testing how Windows 11 records interactive sign-ins</li>
         <li>Investigated Linux authentication logs to identify privileged commands and a failed sudo attempt</li>
-        <li>Checked listening services with <code>ss</code> to separate localhost-only ports from network-exposed ones</li>
+        <li>Audited listening services with <code>ss</code>, flagging Splunk's internal database as unnecessarily exposed to the network</li>
       </ul>
       <div class="tracker" aria-label="Lab progress">
         <div class="step complete"><div class="bar"></div>SIEM server</div>
         <div class="step complete"><div class="bar"></div>Windows VM</div>
-        <div class="step current"><div class="bar"></div>Networking</div>
-        <div class="step"><div class="bar"></div>Log forwarding</div>
-        <div class="step"><div class="bar"></div>Detections</div>
+        <div class="step complete"><div class="bar"></div>Networking</div>
+        <div class="step complete"><div class="bar"></div>Log forwarding</div>
+        <div class="step current"><div class="bar"></div>Detections</div>
         <div class="step"><div class="bar"></div>Dashboard</div>
       </div>
       <div class="p-foot">
-        <div class="tags"><span class="tag">Splunk</span><span class="tag">Linux</span><span class="tag">Windows 11</span><span class="tag">VMware</span><span class="tag">systemd</span></div>
+        <div class="tags"><span class="tag">Splunk</span><span class="tag">Linux</span><span class="tag">Windows 11</span><span class="tag">Sysmon</span><span class="tag">Universal Forwarder</span><span class="tag">VMware</span></div>
         <a class="p-link" href="https://github.com/HersiAhmed/siem-homelab" target="_blank" rel="noopener">Read the write-ups →</a>
       </div>
     </article>
@@ -424,13 +427,13 @@
     <div class="roadmap">
       <div class="rm now">
         <div class="rm-when">Now</div>
-        <div class="rm-what">Connect the lab and forward Windows logs to Splunk</div>
-        <div class="rm-sub">Sysmon, the Splunk Universal Forwarder, and a first look at the traffic in Wireshark</div>
+        <div class="rm-what">Simulated attacks and detections</div>
+        <div class="rm-sub">Brute force, discovery, and scheduled-task persistence, each with a Splunk detection mapped to MITRE ATT&amp;CK</div>
       </div>
       <div class="rm">
         <div class="rm-when">Next</div>
-        <div class="rm-what">Simulated attacks and detections</div>
-        <div class="rm-sub">Brute force, discovery, and scheduled-task persistence, each with a Splunk detection mapped to MITRE ATT&amp;CK</div>
+        <div class="rm-what">SOC dashboard</div>
+        <div class="rm-sub">A Splunk dashboard tracking failed logons, suspicious processes, and new persistence</div>
       </div>
       <div class="rm">
         <div class="rm-when">Then</div>
@@ -454,6 +457,9 @@
         <div class="skill-items">
           <span class="skill-item">Splunk (SPL)</span>
           <span class="skill-item">Elastic / Kibana (KQL)</span>
+          <span class="skill-item">Windows Event Logs</span>
+          <span class="skill-item">Sysmon</span>
+          <span class="skill-item">Splunk Universal Forwarder</span>
           <span class="skill-item">Log analysis</span>
           <span class="skill-item">Phishing analysis</span>
         </div>
@@ -464,7 +470,7 @@
           <span class="skill-item">Linux (Ubuntu, systemd)</span>
           <span class="skill-item">Windows 11</span>
           <span class="skill-item">VMware, VirtualBox</span>
-          <span class="skill-item">Bash</span>
+          <span class="skill-item">Bash, PowerShell</span>
         </div>
       </div>
       <div class="skill-group">
